@@ -7,7 +7,7 @@
         protected function Conexion(){
             try {
                 //Local
-				$conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=soportesd","root","");
+				$conectar = $this->dbh = new PDO("mysql:local=localhost:8080;dbname=soportesd","root","");
                 //Produccion
                 //$conectar = $this->dbh = new PDO("mysql:host=localhost;dbname=andercode_helpdesk1","andercode","contraseña");
 				return $conectar;
@@ -23,7 +23,7 @@
 
         public static function ruta(){
             //Local
-			return "http://localhost/soportesd/";
+			return "http://localhost:8080/SOPORTE-SD/";
             
 		}
 

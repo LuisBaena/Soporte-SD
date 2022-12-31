@@ -80,9 +80,7 @@
 						<div class="col-lg-4">
 							<fieldset class="form-group">
 								<label class="form-label bold" for="exampleInput">Categoria</label>
-								<select id="cat_id" name="cat_id" class="select2" required>
-								
-
+								<select id="cat_id" name="cat_id" class="select2" required>								
 								</select>
 							</fieldset>
 						</div>

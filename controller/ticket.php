@@ -10,23 +10,21 @@
 
     require_once("../models/Documento.php");
     $documento = new Documento();
-
+    //castear lo que se recibe por get antes de entrar a la validacion
     switch($_GET["op"]){
 
 
         case "tipoSolicitud":
-            
-            $datos=[
-                ['id'=>'Solicitud de informacion','solicitud'=>'Solicitud de informacion' ],  
-                ['id'=>'Soporte','solicitud'=>'Soporte' ],      
-                ['id'=>'Servicio','solicitud'=>'Servicio' ]
-            ];          
+            //se guarda en arreglo asignando valor a las 2 variables que apareceran en la lista
+            $datos = $ticket->get_tiposolicitud();
+            if(is_array($datos)==true and count($datos)>0){
                 $html.="<option>Selecciona</option>";
                 foreach($datos as $row)
                 {                    
-                    $html.= "<option value='".$row['id']."' >".$row['solicitud']."</option>";
+                    $html.= "<option value='".$row['id_tipo']."' >".$row['descripcion']."</option>";
                 }
-                echo $html;            
+                echo $html;
+            }    
         break; 
         
         case "sucursal":
@@ -36,7 +34,7 @@
                 ['id'=>'Monterrey la Fe','sucursal'=>'Monterrey la Fe' ],      
                 ['id'=>'Monterrey Lincoln','sucursal'=>'Monterrey Lincoln' ],
                 ['id'=>'San Nicolas','sucursal'=>'San Nicolas' ],
-                ['id'=>'San Nicolas Plaza Opcion','sucursal'=>'San Nicolas Plaza Opcion' ],
+                ['id'=>'Apodaca','sucursal'=>'San Nicolas Plaza Opcion' ],
                 ['id'=>'Santa Catarina','sucursal'=>'Santa Catarina' ]
             ];          
                 $html.="<option>Selecciona</option>";
@@ -100,7 +98,7 @@
                 foreach($datos as $row)
                 {
                     
-                    $html.= "<option value='".$row['idSubCategoria']."' >".$row['subCategoria']."</option>";
+                    $html.= "<option value='".$row['id_subcategoria']."' >".$row['subcat_nom']."</option>";
                 }
                 echo $html;
             }                                      
