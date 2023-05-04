@@ -9,7 +9,25 @@
             $sql=$conectar->prepare($sql);
             $sql->execute();
             return $resultado=$sql->fetchAll();
-        }    
+        }
+        
+        public function get_listarsucursal(){
+            $conectar=parent::conexion();
+            parent::set_names();
+            $sql="SELECT * FROM tm_sucursal WHERE est=1";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
+
+        public function get_listararea(){
+            $conectar=parent::conexion();
+            parent::set_names();
+            $sql="SELECT * FROM tm_area WHERE est=1";
+            $sql=$conectar->prepare($sql);
+            $sql->execute();
+            return $resultado=$sql->fetchAll();
+        }
         //OBTIENE LA CATEGORIA PRINCIPAL EN LISTADO COMO PARAMETRO ACTIVA
         public function get_categoria(){
             $conectar= parent::conexion();
@@ -58,13 +76,13 @@
             $conectar= parent::conexion();
             parent::set_names();
             $sql="INSERT INTO tm_ticket
-                    VALUES(NULL,?,?,?,?,?,?,?,?,?,?,'Abierto',now(),?,?,now(),'1');";
+                    VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,'Abierto',now(),now(),'1');";
             $sql=$conectar->prepare($sql);
-            $sql->bindValue(1, $tipoSolicitud);
-            $sql->bindValue(2, $sucursal);
-            $sql->bindValue(3, $areas);
-            $sql->bindValue(4, $prioridad);
-            $sql->bindValue(5, $usu_id);
+            $sql->bindValue(1, $usu_id);
+            $sql->bindValue(2, $tipoSolicitud);
+            $sql->bindValue(3, $sucursal);
+            $sql->bindValue(4, $areas);
+            $sql->bindValue(5, $prioridad);
 
             $sql->bindValue(6, $cat_id);
             $sql->bindValue(7, $subcat_id);
@@ -118,28 +136,31 @@
             parent::set_names();
             $sql="SELECT 
             tm_ticket.tick_id,
-            tm_ticket.tipo_solicitud_id,
-            tm_ticket.sucursal_id,
-            tm_ticket.area_id,
-            tm_ticket.prioridad_id,
             tm_ticket.usu_id,
+            tm_ticket.id_tipo,
+            tm_ticket.id_sucursal,
+            tm_ticket.id_area,
+            tm_ticket.tick_prioridad,            
             tm_ticket.cat_id,
+            tm_ticket.id_subcat,
+            tm_ticket.id_articulo_sub,
             tm_ticket.tick_titulo,
-            tm_ticket.tick_descrip,
-            tm_ticket.tick_estado,
+            tm_ticket.tickd_descrip,
+            tm_ticket.est,
             tm_ticket.fech_crea,
+
             tm_usuario.usu_nom,
             tm_usuario.usu_ape,
             tm_usuario.usu_correo,
             tm_ticket.usu_asig,
             tm_categoria.cat_nom,
-            tm_subcategoria.subCategoria,
+            tm_subcategoria.subcat_nom,
             tm_articulo.articulo_subcat            
             FROM 
             tm_ticket
             INNER join tm_categoria on tm_ticket.cat_id = tm_categoria.cat_id
-            INNER join tm_subcategoria on tm_ticket.subcat_id = tm_subcategoria.idSubCategoria
-            INNER join tm_articulo on tm_ticket.artsubcat_id = tm_articulo.id_articulo_sub	
+            INNER join tm_subcategoria on tm_ticket.id_subcat = tm_subcategoria.id_subcategoria
+            INNER join tm_articulo on tm_ticket.id_articulo_sub = tm_articulo.id_articulo_sub	
                              
             INNER join tm_usuario on tm_ticket.usu_id = tm_usuario.usu_id
            

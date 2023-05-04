@@ -33,7 +33,7 @@ class Email extends PHPMailer{
 
         //IGual//
         $this->IsSMTP();
-        $this->Host = 'smtp.office365.com';
+        $this->Host = 'smtp.outlook.com';
         $this->Port = 587;
         $this->SMTPAuth = true;
         $this->Username = $this->gCorreo;

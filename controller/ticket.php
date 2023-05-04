@@ -15,7 +15,7 @@
 
 
         case "tipoSolicitud":
-            //se guarda en arreglo asignando valor a las 2 variables que apareceran en la lista
+            
             $datos = $ticket->get_tiposolicitud();
             if(is_array($datos)==true and count($datos)>0){
                 $html.="<option>Selecciona</option>";
@@ -29,38 +29,28 @@
         
         case "sucursal":
            
-            $datos=[
-                ['id'=>'Monterrey','sucursal'=>'Monterrey' ],  
-                ['id'=>'Monterrey la Fe','sucursal'=>'Monterrey la Fe' ],      
-                ['id'=>'Monterrey Lincoln','sucursal'=>'Monterrey Lincoln' ],
-                ['id'=>'San Nicolas','sucursal'=>'San Nicolas' ],
-                ['id'=>'Apodaca','sucursal'=>'San Nicolas Plaza Opcion' ],
-                ['id'=>'Santa Catarina','sucursal'=>'Santa Catarina' ]
-            ];          
+            $datos= $ticket->get_listarsucursal();
+            if(is_array($datos)==true and count($datos)>0){
                 $html.="<option>Selecciona</option>";
                 foreach($datos as $row)
                 {                    
-                    $html.= "<option value='".$row['id']."' >".$row['sucursal']."</option>";
+                    $html.= "<option value='".$row['id_sucursal']."' >".$row['nombre_sucursal']."</option>";
                 }
-                echo $html;            
+                echo $html;
+            }    
+                            
         break; 
         
         case "areas":      
-            $datos=[
-                ['id'=>'Electrocardiograma','area'=>'Electrocardiograma' ],  
-                ['id'=>'Densitometria','area'=>'Densitometria' ],      
-                ['id'=>'Vitrina','area'=>'Vitrina' ],
-                ['id'=>'Imagen','area'=>'Imagen' ],
-                ['id'=>'Ultrasonido','area'=>'Ultrasonido' ],
-                ['id'=>'Optometria','area'=>'Optometria' ],
-                ['id'=>'Laboratorio','area'=>'Laboratorio' ]
-            ];          
+            $datos= $ticket->get_listararea();
+            if(is_array($datos)==true and count($datos)>0){
                 $html.="<option>Selecciona</option>";
                 foreach($datos as $row)
                 {                    
-                    $html.= "<option value='".$row['id']."' >".$row['area']."</option>";
+                    $html.= "<option value='".$row['id_area']."' >".$row['nombre_area']."</option>";
                 }
-                echo $html;            
+                echo $html;
+            }                                                  
         break;  
 
         case "prioridad":
@@ -144,7 +134,7 @@
         case "insert":
             $datos=$ticket->insert_ticket($_POST["usu_id"], $_POST["tipoSolicitud"], $_POST["sucursal"], $_POST["areas"],
                 $_POST["prioridad"], $_POST["cat_id"], $_POST["subcat_id"], $_POST["articulo_id"],
-                $_POST["tick_titulo"],$_POST["tick_descrip"], $_POST["soporte"], $_POST["supervisor"]);
+                $_POST["tick_titulo"], $_POST["tick_descrip"], $_POST["soporte"], $_POST["supervisor"]);
             if (is_array($datos)==true and count($datos)>0){
                 foreach ($datos as $row){
                     $output["tick_id"] = $row["tick_id"];
