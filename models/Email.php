@@ -16,7 +16,7 @@ class Email extends PHPMailer{
 
     public function ticket_abierto($tick_id){
         $ticket = new Ticket();
-        $micorreo="sistemas.sannicolas@salud-digna.org";
+        
         $datos = $ticket->listar_ticket_x_id($tick_id);
         foreach ($datos as $row){
             $id = $row["tick_id"];
