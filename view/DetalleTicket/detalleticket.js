@@ -99,6 +99,7 @@ $(document).ready(function(){
 
 });
 
+//para capturar parametro en una url, en este caso id del ticket al mostrar su descripcion
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
         sURLVariables = sPageURL.split('&'),
@@ -167,18 +168,19 @@ function listardetalle(tick_id){
 
     $.post("../../controller/ticket.php?op=mostrar", { tick_id : tick_id }, function (data) {
         data = JSON.parse(data);
+        console.log(data);
         $('#lblestado').html(data.tick_estado);
         $('#lblnomusuario').html(data.usu_nom +' '+data.usu_ape);
         $('#lblfechcrea').html(data.fech_crea);
         
         $('#lblnomidticket').html("Detalle Ticket - "+data.tick_id);
 
-        $('#txtTipoSolicitud').val(data.tipo_solicitud_id);
-        $('#txtSucursal').val(data.sucursal_id);
-        $('#txtAreas').val(data.area_id);
+        $('#txtTipoSolicitud').val(data.tipo_solicitud_descripcion);
+        $('#txtSucursal').val(data.sucursal_nombre);
+        $('#txtAreas').val(data.area_nombre);
         $('#txtPrioridad').val(data.prioridad_id);
         $('#cat_nom').val(data.cat_nom);
-        $('#txtSubcat_id').val(data.subCategoria);
+        $('#txtSubcat_id').val(data.subcat_nom);
         $('#txtArticulo_id').val(data.articulo_subcat);
         $('#tick_titulo').val(data.tick_titulo);
         $('#tickd_descripusu').summernote ('code',data.tick_descrip);

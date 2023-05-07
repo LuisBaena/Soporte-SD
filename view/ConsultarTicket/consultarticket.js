@@ -125,7 +125,7 @@ $(document).ready(function(){
 });
 
 function ver(tick_id){
-    window.open('http:8080//localhost/Soporte-SD/view/DetalleTicket/?ID='+ tick_id +'');
+    window.open('http://localhost:8080/SOPORTE-SD/view/DetalleTicket/?ID='+ tick_id +'');
 }
 
 function asignar(tick_id){

@@ -139,8 +139,8 @@
                 foreach ($datos as $row){
                     $output["tick_id"] = $row["tick_id"];
                     
-
-                    if ($_FILES['files']['name']==0){
+                    //con empty nos aseguramos que el file no venga con archivos o imagenes cargados, si esta vacio no marque error
+                    if (empty($_FILES['files']['name'])){
 
                     }else{
                         $countfiles = count($_FILES['files']['name']);
@@ -318,16 +318,14 @@
                     $output["tick_id"] = $row["tick_id"];
                     $output["usu_id"] = $row["usu_id"];
                     $output["cat_id"] = $row["cat_id"];
-
                     $output["tick_titulo"] = $row["tick_titulo"];
-                    $output["tick_descrip"] = $row["tick_descrip"];
-
-                    $output["tipo_solicitud_id"]=$row["tipo_solicitud_id"];
-                    $output["sucursal_id"]=$row["sucursal_id"];
-                    $output["prioridad_id"]=$row["prioridad_id"];
-                    $output["area_id"]=$row["area_id"];
-                    $output["subCategoria"]=$row["subCategoria"];
-                    $output["articulo_subcat"]=$row["articulo_subcat"];
+                    $output["tick_descrip"] = $row["tickd_descrip"];
+                    $output["tipo_solicitud_descripcion"]=$row["descripcion"];
+                    $output["sucursal_nombre"]=$row["nombre_sucursal"];
+                    $output["prioridad_id"]=$row["tick_prioridad"];
+                    $output["area_nombre"]=$row["nombre_area"];
+                    $output["subCategoria"]=$row["id_subcat"];
+                    $output["articulo_subcat"]=$row["id_articulo_sub"];
 
                     if ($row["tick_estado"]=="Abierto"){
                         $output["tick_estado"] = '<span class="label label-pill label-success">Abierto</span>';
@@ -341,6 +339,8 @@
                     $output["usu_nom"] = $row["usu_nom"];
                     $output["usu_ape"] = $row["usu_ape"];
                     $output["cat_nom"] = $row["cat_nom"];
+                    $output["subcat_nom"]=$row["subcat_nom"];
+                    
                 }
                 echo json_encode($output);
             }   

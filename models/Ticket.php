@@ -109,7 +109,7 @@
                 tm_ticket.usu_id,
                 tm_ticket.cat_id,
                 tm_ticket.tick_titulo,
-                tm_ticket.tick_descrip,
+                tm_ticket.tickd_descrip,
                 tm_ticket.tick_estado,
                 tm_ticket.fech_crea,
                 tm_ticket.usu_asig,
@@ -146,24 +146,27 @@
             tm_ticket.id_articulo_sub,
             tm_ticket.tick_titulo,
             tm_ticket.tickd_descrip,
-            tm_ticket.est,
-            tm_ticket.fech_crea,
-
+            tm_ticket.tick_estado,
+            tm_ticket.fech_crea,			
+            tm_tiposolicitud.descripcion,
             tm_usuario.usu_nom,
             tm_usuario.usu_ape,
             tm_usuario.usu_correo,
             tm_ticket.usu_asig,
             tm_categoria.cat_nom,
             tm_subcategoria.subcat_nom,
-            tm_articulo.articulo_subcat            
+            tm_articulo.articulo_subcat,
+            tm_sucursal.nombre_sucursal,
+            tm_area.nombre_area
             FROM 
             tm_ticket
             INNER join tm_categoria on tm_ticket.cat_id = tm_categoria.cat_id
+            INNER join tm_tiposolicitud on tm_ticket.id_tipo=tm_tiposolicitud.id_tipo
             INNER join tm_subcategoria on tm_ticket.id_subcat = tm_subcategoria.id_subcategoria
-            INNER join tm_articulo on tm_ticket.id_articulo_sub = tm_articulo.id_articulo_sub	
-                             
+            INNER join tm_articulo on tm_ticket.id_articulo_sub = tm_articulo.id_articulo_sub	                            
             INNER join tm_usuario on tm_ticket.usu_id = tm_usuario.usu_id
-           
+           	INNER join tm_sucursal on tm_ticket.id_sucursal = tm_sucursal.id_sucursal
+            INNER join tm_area on tm_ticket.id_area = tm_area.id_area
             WHERE
             tm_ticket.est = 1
             AND tm_ticket.tick_id =?";
@@ -181,7 +184,7 @@
                 tm_ticket.usu_id,
                 tm_ticket.cat_id,
                 tm_ticket.tick_titulo,
-                tm_ticket.tick_descrip,
+                tm_ticket.tickd_descrip,
                 tm_ticket.tick_estado,
                 tm_ticket.fech_crea,
                 tm_ticket.usu_asig,
@@ -194,8 +197,7 @@
                 INNER join tm_categoria on tm_ticket.cat_id = tm_categoria.cat_id
                 INNER join tm_usuario on tm_ticket.usu_id = tm_usuario.usu_id
                 WHERE
-                tm_ticket.est = 1
-                ";
+                tm_ticket.est = 1";
             $sql=$conectar->prepare($sql);
             $sql->execute();
             return $resultado=$sql->fetchAll();
