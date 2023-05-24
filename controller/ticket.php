@@ -246,7 +246,7 @@
                 }else{
                     $datos1=$usuario->get_usuario_x_id($row["usu_asig"]);
                     foreach($datos1 as $row1){
-                        $sub_array[] = '<span class="label label-pill label-success">'. $row1["usu_nom"].'</span>';
+                        $sub_array[] = '<a onClick="asignar('.$row["tick_id"].');" title="Click para asignar ticket a alguien más"> <span class="label label-pill label-success">'. $row1["usu_nom"].'</span></a>';
                     }
                 }
 

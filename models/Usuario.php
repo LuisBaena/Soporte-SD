@@ -92,7 +92,7 @@
         public function get_usuario_x_rol(){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT * FROM tm_usuario where est=1 and rol_id=2";
+            $sql="call sp_l_usuario_rol()";
             $sql=$conectar->prepare($sql);
             $sql->execute();
             return $resultado=$sql->fetchAll();
@@ -100,7 +100,7 @@
         public function get_usuario_x_rol_sup(){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT * FROM tm_usuario where est=1 and rol_id=3";
+            $sql="call sp_l_usuario_rol_sup()";
             $sql=$conectar->prepare($sql);
             $sql->execute();
             return $resultado=$sql->fetchAll();
@@ -119,7 +119,7 @@
         public function get_usuario_total_x_id($usu_id){
             $conectar= parent::conexion();
             parent::set_names();
-            $sql="SELECT COUNT(*) as TOTAL FROM tm_ticket where usu_id = ?";
+            $sql="call sp_l_usuario_total_x_id(?)";
             $sql=$conectar->prepare($sql);
             $sql->bindValue(1, $usu_id);
             $sql->execute();
